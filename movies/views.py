@@ -1,5 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
+
+from .forms import SurveyForm
+from .models import Survey
+
+def survey_popup(request):
+    if request.method == 'POST':
+        if 'cancel' in request.POST:   # if cancel button clicked
+            return redirect('home')    # or wherever you want
+        form = SurveyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('survey_list')  # go to list of feedback
+    else:
+        form = SurveyForm()
+    return render(request, 'movies/survey_popup.html', {'form': form})
+
+def survey_list(request):
+    surveys = Survey.objects.all().order_by('-date')
+    return render(request, 'movies/survey_list.html', {'surveys': surveys})
+
 # Create your views here.
 from .models import Movie, Review
 from django.contrib.auth.decorators import login_required

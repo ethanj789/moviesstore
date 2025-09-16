@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>User Feedback</h2>
+<ul class="list-group">
+  {% for survey in surveys %}
+  <li class="list-group-item">
+    <b>{{ survey.name }}</b> ({{ survey.date|date:"Y-m-d H:i" }})
+    <p>{{ survey.thoughts }}</p>
+  </li>
+  {% empty %}
+  <li class="list-group-item">No feedback yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="modal" style="display:block; background:rgba(0,0,0,0.6);">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+      <h3>We’d love your feedback!</h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-between">
+          <button type="submit" name="cancel" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

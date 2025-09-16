@@ -19,3 +19,10 @@ class Review(models.Model):
         on_delete=models.CASCADE)
     def __str__(self):
         return str(self.id) + ' - ' + self.movie.name
+class Survey(models.Model):
+    name = models.CharField(max_length=100)
+    thoughts = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name}: {self.thoughts[:30]}..."

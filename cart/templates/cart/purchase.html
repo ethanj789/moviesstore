@@ -6,11 +6,49 @@
             <div class="col mx-auto mb-3">
                 <h2>Purchase Completed</h2>
                 <hr />
-                <p>Congratulations, purchase completed. Order
-                    number is: <b>#{{ template_data.order_id }}</b>
+                <p>
+                    Congratulations, purchase completed. Order number is:
+                    <b>#{{ template_data.order_id }}</b>
                 </p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Survey Modal -->
+<div class="modal fade" id="surveyModal" tabindex="-1" aria-labelledby="surveyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="surveyModalLabel">We’d love your feedback!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'survey_popup' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="id_name" class="form-label">Your Name</label>
+            <input type="text" name="name" class="form-control" id="id_name" required>
+          </div>
+          <div class="mb-3">
+            <label for="id_thoughts" class="form-label">Your Thoughts</label>
+            <textarea name="thoughts" class="form-control" id="id_thoughts" rows="3" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-show modal after purchase -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var surveyModal = new bootstrap.Modal(document.getElementById('surveyModal'));
+    surveyModal.show();
+  });
+</script>
 {% endblock content %}
