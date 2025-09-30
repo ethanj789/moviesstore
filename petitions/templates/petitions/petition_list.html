@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Petitions</h2>
+<a class="btn btn-primary mb-3" href="{% url 'petition_create' %}">Start a Petition</a>
+<hr>
+{% for petition in petitions %}
+<div class="card p-3 mb-3">
+    <h3>{{ petition.title }}</h3>
+    <p>{{ petition.description }}</p>
+    <p>Yes: {{ petition.yes_votes }} | No: {{ petition.no_votes }}</p>
+    {% if user.is_authenticated %}
+    <a class="btn btn-success" href="{% url 'petition_vote' petition.id %}?vote=1">Vote Yes</a>
+    <a class="btn btn-danger" href="{% url 'petition_vote' petition.id %}?vote=0">Vote No</a>
+    {% else %}
+    <p><em>Log in to vote</em></p>
+    {% endif %}
+</div>
+{% empty %}
+<p>No petitions yet. Start one!</p>
+{% endfor %}
+{% endblock %}
